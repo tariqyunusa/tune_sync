@@ -1,7 +1,7 @@
 import './App.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from '../public/logo.png'
-import { handleSpotifyAuth, handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth } from './utils/auth'
+import {  handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth } from './utils/auth'
 
 const App: React.FC = () => {
   const [targetLink, setTargetLink] = useState('')
@@ -12,10 +12,9 @@ const App: React.FC = () => {
     if (link.includes("spotify.com")) {
       setPlatform("Spotify")
       return "Spotify"
-      
     }
     // youtube music
-    else if(link.includes("youtube.com")) {
+    else if(link.includes("music.youtube.com")) {
       setPlatform("Youtube Music")
       return "Youtube Music"
     }
@@ -37,9 +36,10 @@ const App: React.FC = () => {
   }
   const handleAuth = () => {
       switch (platform) {
-        case "Spotify": handleSpotifyAuth()
+        case "Spotify": return "Cannot Convert Spotify to Spotify"
         break
-        case "Youtube Music": handleYoutubeAuth()
+        case "Youtube Music": 
+        handleYoutubeAuth(targetLink)
         break
         case "Soundcloud": handleSoundcloudAuth()
         break
@@ -48,13 +48,17 @@ const App: React.FC = () => {
         default: return
     }
   }
+  useEffect(() => {
+    verifyPlatform(targetLink)
+    handleAuth()
+  }, [targetLink])
 
   return (
     <div className='tune__sync_wrapper'>
       <div>
         <h1>Tune Sync</h1>
         <div>
-          <input type="text" name="link" className='input__link' placeholder='input playlist link'/>
+          <input type="text" name="link" className='input__link' placeholder='input playlist link' onChange={(e) => setTargetLink(e.target.value)}/>
           <div>{platform}</div>
           <button className='button_cta'><span><img src={logo} alt="logo" /></span>Login to proceed</button>
         </div>
