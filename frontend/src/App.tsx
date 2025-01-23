@@ -1,35 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { useState } from 'react'
+import logo from '../public/logo.png'
+import { handleSpotifyAuth, handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth } from './utils/auth'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [targetLink, setTargetLink] = useState('')
+  const [platform, setPlatform] = useState<string | undefined>(undefined)
+
+  const verifyPlatform = (link: string) => {
+    // spotify 
+    if (link.includes("spotify.com")) {
+      setPlatform("Spotify")
+      return "Spotify"
+      
+    }
+    // youtube music
+    else if(link.includes("youtube.com")) {
+      setPlatform("Youtube Music")
+      return "Youtube Music"
+    }
+    // soundcloud
+    else if(link.includes("soundcloud.com")) {
+      setPlatform("Soundcloud")
+      return "Soundcloud"
+    }
+    // deezer
+    else if(link.includes("deezer.com")) {
+      setPlatform("Deezer")
+      return "Deezer"
+    }
+    else {
+      setPlatform(undefined)
+      return undefined
+    }
+    
+  }
+  const handleAuth = () => {
+      switch (platform) {
+        case "Spotify": handleSpotifyAuth()
+        break
+        case "Youtube Music": handleYoutubeAuth()
+        break
+        case "Soundcloud": handleSoundcloudAuth()
+        break
+        case "Deezer": handleDeezerAuth()
+        break
+        default: return
+    }
+  }
 
   return (
-    <>
+    <div className='tune__sync_wrapper'>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Tune Sync</h1>
+        <div>
+          <input type="text" name="link" className='input__link' placeholder='input playlist link'/>
+          <div>{platform}</div>
+          <button className='button_cta'><span><img src={logo} alt="logo" /></span>Login to proceed</button>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
+
 
 export default App
