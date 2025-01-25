@@ -1,6 +1,5 @@
 import './App.css'
 import { useEffect, useState } from 'react'
-import logo from '../public/logo.png'
 import {  handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth } from './utils/auth'
 
 const App: React.FC = () => {
@@ -50,7 +49,6 @@ const App: React.FC = () => {
   }
   useEffect(() => {
     verifyPlatform(targetLink)
-    handleAuth()
   }, [targetLink])
 
   return (
@@ -60,7 +58,7 @@ const App: React.FC = () => {
         <div>
           <input type="text" name="link" className='input__link' placeholder='input playlist link' onChange={(e) => setTargetLink(e.target.value)}/>
           <div>{platform}</div>
-          <button className='button_cta'><span><img src={logo} alt="logo" /></span>Login to proceed</button>
+          <button className='button_cta' onClick={handleAuth}><span></span>Login to proceed</button>
         </div>
       </div>
     </div>

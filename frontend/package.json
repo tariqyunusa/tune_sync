@@ -14,6 +14,8 @@
     "framer-motion": "^12.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "vite-plugin-web-extension": "^4.4.3",
+    "webextension-polyfill": "^0.12.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
@@ -21,6 +23,7 @@
     "@types/node": "^22.10.10",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "@types/webextension-polyfill": "^0.12.1",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.0.0",

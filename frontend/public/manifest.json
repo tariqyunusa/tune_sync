@@ -3,21 +3,11 @@
     "name": "TuneSync",
     "description": "Sync and convert playlists across music streaming platforms.",
     "version": "1.0",
-    "permissions": ["storage", "activeTab", "scripting", "tabs"],
-    "host_permissions": ["https://api.spotify.com/*"],
-    "background": {
-      "service_worker": "background.js"
-    },
+    "permissions": ["storage", "activeTab", "scripting"],
+    "host_permissions": ["https://*/*","http://*/"],
     "action": {
-      "default_popup": "popup.html"
+      "default_popup": "index.html"
     },
-    
-    "content_scripts": [
-      {
-        "matches": ["https://api.spotify.com/*"],
-        "js": ["content.js"]
-      }
-    ],
     "oauth2": {
       "client_id": "65ad9a920fc5419e85bf6a978cc19858",
       "scopes": [

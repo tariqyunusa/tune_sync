@@ -1,7 +1,16 @@
 import axios from 'axios';
 const handleYoutubeAuth = async (targetLink: string) => {
-const response  = await axios.get(`${targetLink}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`)
-console.log(response.data)
+    try{
+        const url = new URL(targetLink)
+        const playlistId = url.searchParams.get('list')
+        if(!playlistId){
+            throw new Error("no playlist id found");
+        }
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${playlistId}&key=AIzaSyAoga9r-m1uJwrXlxflb_JR-p1a-YWpIQM`)
+        console.log(response.data);   
+    }catch(error) {
+        console.error("error in handleYoutubeAuth", error);
+    }
 }
 const handleSoundcloudAuth = async () => {
   
