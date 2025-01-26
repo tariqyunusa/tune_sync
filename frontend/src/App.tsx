@@ -5,6 +5,7 @@ import {  handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth } from './ut
 const App: React.FC = () => {
   const [targetLink, setTargetLink] = useState('')
   const [platform, setPlatform] = useState<string | undefined>(undefined)
+  const [songs, setSongs] = useState([])
 
   const verifyPlatform = (link: string) => {
     // spotify 
@@ -33,12 +34,13 @@ const App: React.FC = () => {
     }
     
   }
-  const handleAuth = () => {
+  const handleAuth = async () => {
       switch (platform) {
         case "Spotify": return "Cannot Convert Spotify to Spotify"
         break
         case "Youtube Music": 
-        handleYoutubeAuth(targetLink)
+        const response = await handleYoutubeAuth(targetLink)
+        setSongs(response)
         break
         case "Soundcloud": handleSoundcloudAuth()
         break
