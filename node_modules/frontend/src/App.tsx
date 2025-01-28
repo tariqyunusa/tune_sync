@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 const App: React.FC = () => {
   const [targetLink, setTargetLink] = useState('')
   const [platform, setPlatform] = useState<string | undefined>(undefined)
-  const {songs, setSongs} = useSongContext()
+  const {setPlaylistName, setSongs} = useSongContext()
   
 
   const verifyPlatform = (link: string) => {
@@ -43,8 +43,10 @@ const App: React.FC = () => {
         case "Spotify": return "Cannot Convert Spotify to Spotify"
         break
         case "Youtube Music": 
-        handleYoutubeAuth(targetLink).then((songs) => setSongs(songs))
-        console.log("all tracks state", songs)
+        handleYoutubeAuth(targetLink).then((response) => {
+          setSongs(response.allItems);
+          setPlaylistName(response.playlistName);
+        })
         break
         case "Soundcloud": handleSoundcloudAuth()
         break
