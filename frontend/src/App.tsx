@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react'
 import {  handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth } from './utils/auth'
 import {useSongContext} from './contexts/songContext'
 import { Link } from 'react-router-dom'
+import { SiYoutubemusic } from "react-icons/si";
 
 
 const App: React.FC = () => {
   const [targetLink, setTargetLink] = useState('')
   const [platform, setPlatform] = useState<string | undefined>(undefined)
+  const [color, setColor] = useState("#d1d1d1")
   const {setPlaylistName, setSongs} = useSongContext()
   
 
@@ -20,6 +22,7 @@ const App: React.FC = () => {
     // youtube music
     else if(link.includes("music.youtube.com")) {
       setPlatform("Youtube Music")
+      setColor("#FF0000")
       return "Youtube Music"
     }
     // soundcloud
@@ -61,11 +64,13 @@ const App: React.FC = () => {
 
   return (
     <div className='tune__sync_wrapper'>
-      <div>
-        <h1>Tune Sync</h1>
-        <div>
+        <h1 className='tune__sync_header'>Tune Sync</h1>
+        <p className='tune__sync_paragraph'>Listen to music without borders, no more gate-keeping, enjoy borderless music experience.</p>
+      <div className='tune__sync_content'>
+        <div className='tune_sync_platform'>
           <input type="text" name="link" className='input__link' placeholder='input playlist link' onChange={(e) => setTargetLink(e.target.value)}/>
-          <div>{platform}</div>
+          <p>To</p>
+          <div className='tune__sync_cross_platform' style={{backgroundColor: color}}><span>{platform === "Youtube Music" && <SiYoutubemusic />}</span><p>{platform ? platform : "paste link"}</p></div>
           <Link className='button_cta' onClick={handleAuth} to='/verify' ><span></span>Proceed</Link>
         </div>
       </div>
