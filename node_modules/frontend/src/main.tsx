@@ -1,9 +1,20 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { SongsProvider } from "./contexts/songContext.tsx";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Verify from "./pages/Verify.tsx";
 
-createRoot(document.getElementById('root')!).render(
 
-    <App />
+createRoot(document.getElementById("root")!).render(
+  <BrowserRouter>
+    <SongsProvider>
+    <Routes>
+      <Route path="/index.html" element={<App />} />
+      <Route path='/verify' element={<Verify />} />
+    </Routes>
+  </SongsProvider>
+  </BrowserRouter>
+
   
-)
+);

@@ -1,11 +1,15 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import {  handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth } from './utils/auth'
+import {useSongContext} from './contexts/songContext'
+import { Link } from 'react-router-dom'
+
 
 const App: React.FC = () => {
   const [targetLink, setTargetLink] = useState('')
   const [platform, setPlatform] = useState<string | undefined>(undefined)
-  const [songs, setSongs] = useState([])
+  const {songs, setSongs} = useSongContext()
+  
 
   const verifyPlatform = (link: string) => {
     // spotify 
@@ -34,13 +38,13 @@ const App: React.FC = () => {
     }
     
   }
-  const handleAuth = async () => {
+  const handleAuth =  () => {
       switch (platform) {
         case "Spotify": return "Cannot Convert Spotify to Spotify"
         break
         case "Youtube Music": 
-        const response = await handleYoutubeAuth(targetLink)
-        setSongs(response)
+        handleYoutubeAuth(targetLink).then((songs) => setSongs(songs))
+        console.log("all tracks state", songs)
         break
         case "Soundcloud": handleSoundcloudAuth()
         break
@@ -60,7 +64,7 @@ const App: React.FC = () => {
         <div>
           <input type="text" name="link" className='input__link' placeholder='input playlist link' onChange={(e) => setTargetLink(e.target.value)}/>
           <div>{platform}</div>
-          <button className='button_cta' onClick={handleAuth}><span></span>Login to proceed</button>
+          <Link className='button_cta' onClick={handleAuth} to='/verify' ><span></span>Proceed</Link>
         </div>
       </div>
     </div>
