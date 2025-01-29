@@ -1,6 +1,7 @@
 import {useSongContext} from '../contexts/songContext'
 import logo from '../../public/logo.png'
 import '../index.css'
+import { Link } from 'react-router-dom'
 const Verify = () => {
     const {songs, playListName} = useSongContext()
     console.log("verifying songs", songs);
@@ -22,7 +23,7 @@ const Verify = () => {
                     })}
                 </div>
             </div>
-            <button className='button__cta_verify'>Convert</button>
+            <Link className='button__cta_verify' to='/confirm'>Convert</Link>
         </div>
     )
 }
