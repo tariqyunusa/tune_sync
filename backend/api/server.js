@@ -1,8 +1,9 @@
 const express = require('express');
 const session = require('express-session')
-const authRoutes = require('./routes/auth')
-const playlistRoute = require('./routes/playlists')
-const trackRoute = require('./routes/tracks')
+const authRoutes = require('../routes/auth')
+const playlistRoute = require('../routes/playlists')
+const trackRoute = require('../routes/tracks')
+const { createServer } = require('@vercel/node');
 const dotenv = require('dotenv')
 
 
@@ -36,7 +37,4 @@ app.get('/', (req, res) => {
 })
 
 // start server
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
-    console.log(`server is running on port ${PORT}`)
-})
+module.exports = createServer(app)
