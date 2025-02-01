@@ -4,7 +4,7 @@ import App from "./App.tsx";
 import { SongsProvider } from "./contexts/songContext.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Verify from "./pages/Verify.tsx";
-import Confirm from "./pages/confirm.tsx";
+import Confirm from "./pages/Confirm.tsx";
 
 
 createRoot(document.getElementById("root")!).render(
@@ -13,7 +13,7 @@ createRoot(document.getElementById("root")!).render(
     <Routes>
       <Route path="/index.html" element={<App />} />
       <Route path='/verify' element={<Verify />} />
-      <Route path="/confirmation" element={<Confirm />} />
+      <Route path="/confirm" element={<Confirm />} />
     </Routes>
   </SongsProvider>
   </BrowserRouter>
