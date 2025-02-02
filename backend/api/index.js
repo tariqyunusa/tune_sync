@@ -19,5 +19,5 @@ app.get('/api', (req, res) => {
     res.send('Welcome to Tune Sync Backend');
 });
 
-// Export the Express app (Vercel auto-detects this as an API function)
+
 module.exports = app;

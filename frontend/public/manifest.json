@@ -1,6 +1,6 @@
 {
     "manifest_version": 3,
-    "name": "TuneSync",
+    "name": "Tune Sync",
     "description": "Sync and convert playlists across music streaming platforms.",
     "version": "1.0",
     "permissions": ["storage", "activeTab", "scripting"],

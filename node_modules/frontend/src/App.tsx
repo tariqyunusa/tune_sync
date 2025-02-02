@@ -2,14 +2,19 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import {  handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth } from './utils/auth'
 import {useSongContext} from './contexts/songContext'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { SiYoutubemusic } from "react-icons/si";
+import  {ClipLoader}  from 'react-spinners'
+import { useLoaderContext } from './contexts/loaderContext'
 
 
 const App: React.FC = () => {
   const [targetLink, setTargetLink] = useState('')
   const [platform, setPlatform] = useState<string | undefined>(undefined)
   const [color, setColor] = useState("#d1d1d1")
+ const {loading, setIsLoading} = useLoaderContext()
+  const navigate = useNavigate()
+
   const {setPlaylistName, setSongs} = useSongContext()
   
 
@@ -42,6 +47,7 @@ const App: React.FC = () => {
     
   }
   const handleAuth =  () => {
+    setIsLoading(true)
       switch (platform) {
         case "Spotify": return "Cannot Convert Spotify to Spotify"
         break
@@ -49,6 +55,8 @@ const App: React.FC = () => {
         handleYoutubeAuth(targetLink).then((response) => {
           setSongs(response.allItems);
           setPlaylistName(response.playlistName);
+          setIsLoading(false)
+          navigate("/verify")
         })
         break
         case "Soundcloud": handleSoundcloudAuth()
@@ -56,6 +64,7 @@ const App: React.FC = () => {
         case "Deezer": handleDeezerAuth()
         break
         default: return
+       
     }
   }
   useEffect(() => {
@@ -69,9 +78,8 @@ const App: React.FC = () => {
       <div className='tune__sync_content'>
         <div className='tune_sync_platform'>
           <input type="text" name="link" className='input__link' placeholder='input playlist link' onChange={(e) => setTargetLink(e.target.value)}/>
-          <p>To</p>
-          <div className='tune__sync_cross_platform' style={{backgroundColor: color}}><span>{platform === "Youtube Music" && <SiYoutubemusic />}</span><p>{platform ? platform : "paste link"}</p></div>
-          <Link className='button_cta' onClick={handleAuth} to='/verify' ><span></span>Proceed</Link>
+          {platform ? <div className='tune__sync_cross_platform' style={{backgroundColor: color}}><span>{platform === "Youtube Music" && <SiYoutubemusic />}</span><p>{platform ? platform : "paste link"}</p></div> : <div></div> }
+          <button className='button_cta' onClick={handleAuth} disabled={loading}>Proceed {loading && <ClipLoader speedMultiplier={1} color='#fff' size={18} loading/>}</button>
         </div>
       </div>
     </div>

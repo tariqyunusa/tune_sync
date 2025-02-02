@@ -23,7 +23,7 @@ const Verify = () => {
                     })}
                 </div>
             </div>
-            <Link className='button__cta_verify' to='/confirm'>Convert</Link>
+            <Link className='button__cta_verify' to='/confirm'><span className='btn__logo'><img src={logo} alt="logo" /></span>Convert</Link>
         </div>
     )
 }

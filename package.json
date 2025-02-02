@@ -8,5 +8,8 @@
   "scripts": {
     "build": "npm run build --workspace=frontend && npm run build --workspace=backend && npm run start:backend",
     "start:backend": "npm run start --workspace=backend"
+  },
+  "dependencies": {
+    "react-spinners": "^0.15.0"
   }
 }
