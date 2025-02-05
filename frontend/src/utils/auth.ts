@@ -62,6 +62,19 @@ const handleYoutubeAuth = async (targetLink: string) => {
         throw error;
     }
 };
+const handleAmazonMusicAuth = async (tragetLink : string) => {
+    try{
+        const url = new URL(tragetLink)
+        const pathSegments = url.pathname.split('/')
+        const playlistId = pathSegments[pathSegments.length - 1]
+        
+        const response = await axios.get(`https://api.music.amazon.dev/v1/playlists/${playlistId}`)
+        return response
+        
+    }catch(error) {
+        console.error(error)
+    }
+}
 const handleSoundcloudAuth = async () => {
     // Soundcloud authentication logic
 };
@@ -70,4 +83,4 @@ const handleDeezerAuth = async () => {
     // Deezer authentication logic
 };
 
-export { handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth };
+export { handleDeezerAuth, handleSoundcloudAuth, handleYoutubeAuth, handleAmazonMusicAuth };
