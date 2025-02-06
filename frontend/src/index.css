@@ -84,7 +84,11 @@ img{
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 1rem;
   
+}
+.verify__catalog p{
+  text-align: start;
 }
 .verify__catalog h3{
   font-size: 1rem;

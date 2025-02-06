@@ -41,7 +41,7 @@ const handleYoutubeAuth = async (targetLink: string) => {
                 key: apiKey,
             };
 
-            console.log("Requesting YouTube API with params:", params);
+            
 
             const response = await axios.get(`https://www.googleapis.com/youtube/v3/playlistItems`, {
                 params,
@@ -63,10 +63,12 @@ const handleYoutubeAuth = async (targetLink: string) => {
     }
 };
 const handleAmazonMusicAuth = async (tragetLink : string) => {
+   
     try{
         const url = new URL(tragetLink)
         const pathSegments = url.pathname.split('/')
         const playlistId = pathSegments[pathSegments.length - 1]
+       
         
         const response = await axios.get(`https://api.music.amazon.dev/v1/playlists/${playlistId}`)
         return response

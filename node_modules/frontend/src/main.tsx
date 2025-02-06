@@ -44,7 +44,7 @@ function PageWrapper({children}: any){
     initial={{opacity: 0, y: 20}}
     animate={{opacity: 1, y: 0}}
     exit={{opacity: 0, y: -20}}
-    transition={{duration: 0.2}}
+    transition={{duration: 0.5}}
     >
       {children}
     </motion.div>
@@ -56,7 +56,7 @@ function SideWrapper({children}: any) {
     initial={{x: 50}}
     animate={{x: 0}}
     exit={{x: -50}}
-    transition={{duration: 0.2}}
+    transition={{duration: 0.5}}
     >
       {children}
     </motion.div>
